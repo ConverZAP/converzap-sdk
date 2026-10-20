@@ -1,0 +1,52 @@
+{
+  "name": "@converzap/sdk",
+  "version": "1.5.2",
+  "description": "Official TypeScript SDK for the ConverZAP API — WhatsApp on the official WhatsApp Business Platform (Meta Cloud API): contacts, conversations, messages, templates, campaigns, deals (CRM), automations, AI agents and webhooks.",
+  "keywords": [
+    "converzap",
+    "whatsapp",
+    "whatsapp-api",
+    "whatsapp-cloud-api",
+    "whatsapp-business",
+    "sdk",
+    "typescript",
+    "crm",
+    "mcp",
+    "ai-agents"
+  ],
+  "homepage": "https://developers.converzap.com",
+  "bugs": {
+    "url": "https://github.com/converzap/converzap-sdk/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/converzap/converzap-sdk.git"
+  },
+  "license": "MIT",
+  "author": "ConverZAP <contato@converzap.com>",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build && node --input-type=module -e \"import('./dist/index.js').then(m=>{if(!m.ConverZap)process.exit(1)})\""
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}
