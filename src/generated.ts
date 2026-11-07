@@ -1,8 +1,8 @@
-// GENERATED from the ConverZAP OpenAPI 1.7.0 — do not edit by hand.
+// GENERATED from the ConverZAP OpenAPI 1.7.1 — do not edit by hand.
 // Regenerate in the converzap repo: ATUALIZAR_SDK=1 pnpm exec vitest run src/lib/api-v1/sdk.test.ts
 /* eslint-disable */
 
-export const API_VERSION = "1.7.0";
+export const API_VERSION = "1.7.1";
 
 export type RequestArgs = { query?: Record<string, unknown>; body?: unknown; idempotencyKey?: string; [pathParam: string]: unknown };
 
@@ -3346,6 +3346,8 @@ export type UpdateAgentDraftBody = {
   edit?: {
     [key: string]: unknown;
   };
+  /** Pelo MCP: true = grava o MESMO ajuste de uma prévia feita de 20 s a 30 min antes (sem ela, cedo demais ou com outro conteúdo, a resposta é a prévia). Fora do MCP não muda nada. */
+  confirm?: boolean;
 };
 
 export type UpdateAgentDraftResponse = {
@@ -3360,6 +3362,14 @@ export type UpdateAgentDraftResponse = {
   /** A configuração em forma legível (perguntas, bom lead, intenções, para quem passa, regras, ferramentas). */
   summary: {
     [key: string]: unknown;
+  };
+  /** true = pelo MCP, nada foi gravado: esta resposta É a prévia; grava numa nova chamada com o mesmo conteúdo e confirm. */
+  preview_required?: boolean;
+  /** O agente que o ajuste muda. */
+  agent?: {
+    id: string;
+    name: string;
+    status: string;
   };
 };
 
@@ -3667,6 +3677,8 @@ export abstract class GeneratedOperations {
    * `POST /agents/{id}/activate`
    *
    * Turns the agent on in its configured channel or, with `channel` (`phone_number_id`), on that WhatsApp number. Same checks as the app: activation checklist (400 with the problems), active agent and number limits (402), one active agent per number (409) and, on the free trial, paid plan only (403 `plan_upgrade_required`).
+   *
+   * **Test mode:** with the `ConverZap-Dry-Run: true` header, the call runs every rule and returns `{dry_run: true, would, warnings}` without saving or sending anything (also available in the free trial).
    *
    * **Required scope:** `agents:write` — Activate, pause and take over AI agent conversations
    */
