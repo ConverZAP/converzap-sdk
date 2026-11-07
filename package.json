@@ -1,6 +1,6 @@
 {
   "name": "@converzap/sdk",
-  "version": "1.5.2",
+  "version": "1.7.0",
   "description": "Official TypeScript SDK for the ConverZAP API — WhatsApp on the official WhatsApp Business Platform (Meta Cloud API): contacts, conversations, messages, templates, campaigns, deals (CRM), automations, AI agents and webhooks.",
   "keywords": [
     "converzap",

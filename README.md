@@ -35,6 +35,13 @@ await cz.sendMessage({
   body: { type: "template", template: { name: "boas_vindas", language: "pt_BR", params: { body: ["Ana"] } } },
 });
 
+// Message a contact who has no conversation yet (approved template; the conversation is created on send)
+await cz.sendMessageToContact({
+  id: contactId,
+  idempotencyKey: crypto.randomUUID(),
+  body: { type: "template", template: { name: "boas_vindas", language: "pt_BR", params: { body: ["Ana"] } } },
+});
+
 // Iterate every page of a list (follows next_cursor)
 for await (const deal of cz.paginate(cz.listDeals, { query: { status: "open" } })) {
   console.log(deal.title);
